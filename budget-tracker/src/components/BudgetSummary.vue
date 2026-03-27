@@ -1,9 +1,11 @@
 <script setup>
+import BaseButton from './BaseButton.vue'
+
 defineProps({
   totalBalance: Number,
   isFormOpen: Boolean,
 })
-defineEmits(['form-button-pressed'])
+defineEmits(['form-toggle-button-pressed'])
 </script>
 
 <template>
@@ -18,12 +20,9 @@ defineEmits(['form-button-pressed'])
         >$ {{ totalBalance }}</span
       >
     </p>
-    <button
-      @click="$emit('form-button-pressed')"
-      id="formToggleButton"
-      class="py-1 px-4 text-white font-bold bg-[rgb(0,0,255)] border border-[rgb(0,0,255)] cursor-pointer hover:bg-white hover:text-[rgb(0,0,255)]"
-    >
-      {{ isFormOpen ? 'Cancel' : 'Add' }}
-    </button>
+    <BaseButton
+      :button-text="isFormOpen ? 'Cancel' : 'Add'"
+      @base-button-pressed="$emit('form-toggle-button-pressed')"
+    />
   </section>
 </template>
