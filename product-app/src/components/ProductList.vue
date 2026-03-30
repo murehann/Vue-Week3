@@ -30,22 +30,29 @@ watch(
 )
 </script>
 <template>
-  <h2 class="text-2xl font-bold">Product List</h2>
-  <div v-if="productStore.error">Error: {{ productStore.error }}</div>
-  <div v-else-if="productStore.isLoading">Loading...</div>
-  <div v-else>
+  <h2 class="text-2xl font-bold mt-2 pl-2 text-center m-2 p-2 border-b border-t">Product List</h2>
+  <div v-if="productStore.error" class="text-[rgb(255,0,0)] font-bold m-2">
+    Error: {{ productStore.error }}
+  </div>
+  <div v-else-if="productStore.isLoading" class="text-[rgb(0,0,255)] font-bold m-2">Loading...</div>
+  <div v-else class="m-2">
     <ProductPagination
       :paginationData="paginationData"
       :totalPages="totalPages"
       @page-changed="handleChangePage"
+      class="flex justify-center"
     />
-    <ul aria-label="product list">
+    <ul
+      aria-label="product list"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-black p-2"
+    >
       <ProductCard v-for="product in productStore.products" :key="product.id" :product="product" />
     </ul>
     <ProductPagination
       :paginationData="paginationData"
       :totalPages="totalPages"
       @page-changed="handleChangePage"
+      class="flex justify-center mb-2"
     />
   </div>
 </template>
