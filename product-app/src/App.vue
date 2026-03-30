@@ -1,7 +1,10 @@
-<script setup></script>
+<script setup>
+import AppHeader from './components/AppHeader.vue'
+</script>
 
 <template>
-  <h1 class="font-bold text-3xl text-center text-gray-600">Product App</h1>
+  <AppHeader />
+  <RouterView />
 </template>
 
 <style scoped></style>
