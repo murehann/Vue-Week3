@@ -1,2 +1,6 @@
-<script setup></script>
-<template>Product Details</template>
+<script setup>
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+</script>
+<template>Product: {{ route.params.id }}</template>
