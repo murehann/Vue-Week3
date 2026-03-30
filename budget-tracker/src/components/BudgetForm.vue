@@ -43,7 +43,7 @@ function validateForm() {
 </script>
 
 <template>
-  <form class="grid gap-3 p-3 grid-cols-3 mb-5 border border-black">
+  <form class="grid gap-3 p-3 grid-cols-3 mb-5 border border-black" @submit.prevent="validateForm">
     <input
       placeholder="Title"
       type="text"
@@ -51,7 +51,7 @@ function validateForm() {
       name="title"
       required
       class="col-span-2 border p-1"
-      v-model="formData.title"
+      v-model.trim="formData.title"
     />
 
     <input
@@ -61,7 +61,7 @@ function validateForm() {
       name="amount"
       required
       class="border p-1"
-      v-model="formData.amount"
+      v-model.number="formData.amount"
     />
 
     <textarea
@@ -70,7 +70,7 @@ function validateForm() {
       name="description"
       id="description"
       class="border col-span-2 p-1 row-span-2 resize-none text-sm"
-      v-model="formData.description"
+      v-model.trim="formData.description"
     ></textarea>
 
     <div class="row-span-2 flex flex-wrap items-center justify-start">
@@ -99,10 +99,9 @@ function validateForm() {
     </div>
 
     <BaseButton
-      button-text="Add Transaction"
       class="col-span-full"
-      @base-button-pressed="validateForm"
-    />
+      type="submit"
+    >Add Transaction</BaseButton>
     <ul
       id="formErrorsList"
       class="text-sm text-[rgb(255,0,0)] font-bold col-span-full list-none pl-0"

@@ -1,21 +1,15 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import TransactionItem from './TransactionItem.vue'
+import { useDebounce } from '@/composables/useDebounce'
 const props = defineProps({
   transactions: Array,
 })
 
 defineEmits(['delete-button-pressed'])
 const search = ref('')
-const debouncedSearch = ref('')
-
-let timeout
-watch(search, (newVal) => {
-  clearTimeout(timeout)
-  timeout = setTimeout(() => {
-    debouncedSearch.value = newVal
-  }, 300)
-})
+const searchDebounceDelay = 300;
+const debouncedSearch = useDebounce(search, searchDebounceDelay);
 
 const filteredTransactions = computed(() => {
   return props.transactions.filter((t) =>
@@ -35,7 +29,8 @@ const filteredTransactions = computed(() => {
       v-model="search"
     />
 
-    <ul class="list-none border-t mt-2 pt-2">
+
+    <ul v-if="filteredTransactions.length" class="list-none border-t mt-2 pt-2">
       <TransactionItem
         v-for="transaction in filteredTransactions"
         :key="transaction.id"
@@ -43,5 +38,6 @@ const filteredTransactions = computed(() => {
         @delete-button-pressed="$emit('delete-button-pressed', transaction.id)"
       />
     </ul>
+    <p v-else class="font-bold p-1">No transactions found</p>
   </section>
 </template>

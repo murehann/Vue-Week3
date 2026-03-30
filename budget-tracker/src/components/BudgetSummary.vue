@@ -21,8 +21,7 @@ defineEmits(['form-toggle-button-pressed'])
       >
     </p>
     <BaseButton
-      :button-text="isFormOpen ? 'Cancel' : 'Add'"
-      @base-button-pressed="$emit('form-toggle-button-pressed')"
-    />
+      @click="$emit('form-toggle-button-pressed')"
+    > {{ isFormOpen ? 'Cancel' : 'Add' }} </BaseButton>
   </section>
 </template>
