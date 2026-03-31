@@ -1,11 +1,17 @@
 <script setup>
 import { onUnmounted, ref, watch } from 'vue'
 import ProductModal from './ProductModal.vue'
+import { useRouter } from 'vue-router'
 
 defineProps({
   product: Object,
 })
 const isProductModalOpen = ref(false)
+const router = useRouter()
+
+const handleNavigate = (id) => {
+  router.push(`/product/${id}`)
+}
 
 watch(isProductModalOpen, (val) => {
   document.body.style.overflow = val ? 'hidden' : ''
@@ -59,6 +65,7 @@ onUnmounted(() => {
         </div>
         <button
           class="p-1 border border-black cursor-pointer bg-amber-500 hover:bg-amber-600"
+          title=""
           @click.stop="console.log('wishlist clicked')"
         >
           <!-- TODO :implement wishlist button -->
@@ -67,7 +74,7 @@ onUnmounted(() => {
       </div>
     </div>
     <Transition
-      enter-active-class="transition duration-300 ease-out"
+      enter-active-class="transition duration-200 ease-out"
       enter-from-class="scale-0 opacity-0"
       enter-to-class="scale-100 opacity-100"
       leave-active-class="transition duration-200 ease-in"
@@ -78,7 +85,7 @@ onUnmounted(() => {
         v-if="isProductModalOpen"
         @modal-close="isProductModalOpen = false"
         :product="product"
-        @navigate-details="console.log('navigate to details clicked')"
+        @navigate-details="handleNavigate"
         @add-wishlist="console.log('wishlist clicked')"
       />
     </Transition>
