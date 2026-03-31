@@ -1,16 +1,33 @@
 <script setup>
-import { onUnmounted, ref, watch } from 'vue'
+import { computed, onUnmounted, ref, watch } from 'vue'
 import ProductModal from './ProductModal.vue'
 import { useRouter } from 'vue-router'
+import { useWishlistStore } from '@/stores/wishlists'
 
-defineProps({
-  product: Object,
+const { product } = defineProps({
+  product: {
+    type: Object,
+    required: true,
+  },
 })
+
 const isProductModalOpen = ref(false)
 const router = useRouter()
+const wishlistStore = useWishlistStore()
+const isWishlisted = computed(() => {
+  return wishlistStore.wishListStatus[product.id] || false
+})
 
-const handleNavigate = (id) => {
-  router.push(`/product/${id}`)
+const handleNavigate = () => {
+  router.push(`/product/${product.id}`)
+}
+
+const handleWishlistClick = () => {
+  if (!isWishlisted.value) {
+    wishlistStore.addToWishList(product.id, product.title, product.thumbnail)
+  } else {
+    wishlistStore.removeFromWishList(product.id)
+  }
 }
 
 watch(isProductModalOpen, (val) => {
@@ -66,10 +83,10 @@ onUnmounted(() => {
         <button
           class="p-1 border border-black cursor-pointer bg-amber-500 hover:bg-amber-600"
           title=""
-          @click.stop="console.log('wishlist clicked')"
+          @click.stop="handleWishlistClick"
         >
           <!-- TODO :implement wishlist button -->
-          Add to Wishlist
+          {{ isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist' }}
         </button>
       </div>
     </div>
@@ -86,7 +103,8 @@ onUnmounted(() => {
         @modal-close="isProductModalOpen = false"
         :product="product"
         @navigate-details="handleNavigate"
-        @add-wishlist="console.log('wishlist clicked')"
+        @add-wishlist="handleWishlistClick"
+        :isWishlisted="isWishlisted"
       />
     </Transition>
   </li>

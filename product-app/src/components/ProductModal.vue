@@ -3,6 +3,7 @@ import BaseModal from './BaseModal.vue'
 defineEmits(['modal-close', 'navigate-details', 'add-wishlist'])
 defineProps({
   product: Object,
+  isWishlisted: Boolean,
 })
 </script>
 
@@ -69,7 +70,7 @@ defineProps({
           @click="$emit('add-wishlist')"
         >
           <i class="pi pi-heart"></i>
-          Add to Wishlist
+          {{ isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist' }}
         </button>
       </div>
     </template>

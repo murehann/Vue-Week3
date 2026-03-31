@@ -1,9 +1,23 @@
 <script setup>
 import { useFetch } from '@/composables/useFetch'
+import { useWishlistStore } from '@/stores/wishlists'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const { data, error, isLoading } = useFetch(`https://dummyjson.com/product/${route.params.id}`)
+const wishlistStore = useWishlistStore()
+const isWishlisted = computed(() => {
+  return wishlistStore.wishListStatus[route.params.id] || false
+})
+
+const handleWishlist = () => {
+  if (!isWishlisted.value) {
+    wishlistStore.addToWishList(data.value.id, data.value.title, data.value.thumbnail)
+  } else {
+    wishlistStore.removeFromWishList(data.value.id)
+  }
+}
 </script>
 <template>
   <div v-if="isLoading" class="text-blue-500 font-bold m-4">Loading...</div>
@@ -68,9 +82,10 @@ const { data, error, isLoading } = useFetch(`https://dummyjson.com/product/${rou
 
         <button
           class="p-1 border border-black cursor-pointer bg-amber-500 hover:bg-amber-600 mt-2 flex items-center gap-1 justify-center"
+          @click="handleWishlist"
         >
           <i class="pi pi-heart"></i>
-          Add to Wishlist
+          {{ isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist' }}
         </button>
       </div>
     </div>
