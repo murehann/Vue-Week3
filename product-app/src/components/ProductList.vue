@@ -31,8 +31,8 @@ watch(
 </script>
 <template>
   <h2 class="text-2xl font-bold mt-2 pl-2 text-center m-2 p-2 border-b border-t">Product List</h2>
-  <div v-if="productStore.isLoading" class="text-[rgb(0,0,255)] font-bold m-2">Loading...</div>
-  <div v-else-if="productStore.error" class="text-[rgb(255,0,0)] font-bold m-2">
+  <div v-if="productStore.isLoading" class="text-blue-600 font-bold m-2">Loading...</div>
+  <div v-else-if="productStore.error" class="text-red-600 font-bold m-2">
     Error: {{ productStore.error }}
   </div>
 
@@ -44,10 +44,12 @@ watch(
       class="flex justify-center"
     />
     <ul
-      aria-label="product list"
+      aria-label="List of products"
       class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border border-black p-2"
     >
-      <ProductCard v-for="product in productStore.products" :key="product.id" :product="product" />
+      <li v-for="product in productStore.products" :key="product.id">
+        <ProductCard :product="product" />
+      </li>
     </ul>
     <ProductPagination
       :paginationData="paginationData"
