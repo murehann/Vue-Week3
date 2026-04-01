@@ -1,8 +1,5 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import './assets/main.css'
-import 'primeicons/primeicons.css'
-
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 import App from './App.vue'

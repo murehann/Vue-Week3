@@ -3,16 +3,20 @@ import NotFound404View from '@/views/NotFound404View.vue'
 import ProductView from '@/views/ProductView.vue'
 import WishlistView from '@/views/WishlistView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
+import { API_BASE_URL } from '@/config/api'
 
 const routes = [
-  { path: '/', component: HomeView },
-  { path: '/wishlist', component: WishlistView },
+  { path: '/', name: 'home', component: HomeView },
+  { path: '/wishlist', name: 'wishlist', component: WishlistView },
   {
     path: '/product/:id',
+    name: 'product-detail',
     component: ProductView,
     beforeEnter: async (to) => {
       try {
-        const res = await fetch(`https://dummyjson.com/products/${to.params.id}`)
+        const res = await fetch(`${API_BASE_URL}/${to.params.id}`, {
+          method: 'HEAD',
+        })
         if (res.status === 404) {
           return { name: 'not-found' }
         }
