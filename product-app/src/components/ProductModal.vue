@@ -1,28 +1,25 @@
 <script setup>
+import BaseButton from './BaseButton.vue'
 import BaseModal from './BaseModal.vue'
 defineEmits(['modal-close', 'navigate-details', 'add-wishlist'])
 defineProps({
-  product: Object,
-  isWishlisted: Boolean,
+  product: {
+    type: Object,
+    required: true,
+  },
+  isWishlisted: {
+    type: Boolean,
+    required: true,
+  },
 })
 </script>
 
 <template>
-  <BaseModal @click="$emit('modal-close')">
-    <template #default>
-      <button
-        class="absolute top-0 right-0 px-3 py-1 text-red-500 transition hover:bg-red-500 hover:text-white cursor-pointer z-10"
-        @click="$emit('modal-close')"
-        aria-label="Close modal"
-      >
-        <i class="pi pi-times"></i>
-      </button>
-    </template>
-
+  <BaseModal @modal-close="$emit('modal-close')" :title="product.title">
     <template #header>
       <div class="w-full p-2 border-b-2 border-gray-700 bg-gray-300">
         <h2 class="font-bold text-2xl">{{ product.title }}</h2>
-        <span class="text-gray-600 text-sm">{{ product.brand }}</span>
+        <p class="text-gray-600 text-sm">{{ product.brand }}</p>
       </div>
     </template>
 
@@ -59,19 +56,11 @@ defineProps({
 
     <template #footer>
       <div class="w-full p-2 border-t-2 border-gray-700 bg-gray-100 flex justify-end gap-1">
-        <button
-          class="p-1 border border-black cursor-pointer bg-amber-500 hover:bg-amber-600"
-          @click="$emit('navigate-details', product.id)"
-        >
-          Go to Details
-        </button>
-        <button
-          class="p-1 border border-black cursor-pointer bg-amber-500 hover:bg-amber-600 flex items-center gap-1"
-          @click="$emit('add-wishlist')"
-        >
+        <BaseButton @click="$emit('navigate-details', product.id)"> Go to Details</BaseButton>
+        <BaseButton @click="$emit('add-wishlist')">
           <i class="pi pi-heart"></i>
           {{ isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist' }}
-        </button>
+        </BaseButton>
       </div>
     </template>
   </BaseModal>

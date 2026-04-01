@@ -3,6 +3,7 @@ import { computed, onUnmounted, ref, watch } from 'vue'
 import ProductModal from './ProductModal.vue'
 import { useRouter } from 'vue-router'
 import { useWishlistStore } from '@/stores/wishlists'
+import BaseButton from './BaseButton.vue'
 
 const { product } = defineProps({
   product: {
@@ -46,11 +47,12 @@ onUnmounted(() => {
     <button
       @click="isProductModalOpen = true"
       class="absolute ml-1 p-1 top-0 left-0 border bg-blue-600 transition hover:scale-110 cursor-pointer"
-      aria-label="Open Modal"
-      title="Button: Click to preview product"
+      :aria-label="`Quick view ${product.title}`"
+      title="Click to preview product"
     >
       <i class="pi pi-window-maximize"></i>
     </button>
+
     <RouterLink
       :to="`/product/${product.id}`"
       :title="`${product.title} - click to view details`"
@@ -75,16 +77,13 @@ onUnmounted(() => {
           Min Order Quantity:<span class="font-bold"> {{ product.minimumOrderQuantity }}</span>
         </p>
       </div>
-      <button
-        class="p-1 border border-black cursor-pointer bg-amber-500 hover:bg-amber-600"
-        title=""
-        @click.stop="handleWishlistClick"
-      >
-        <!-- TODO :implement wishlist button -->
-        {{ isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist' }}
-      </button>
+
+      <BaseButton @click.stop="handleWishlistClick">{{
+        isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'
+      }}</BaseButton>
     </div>
   </div>
+
   <Transition
     enter-active-class="transition duration-200 ease-out"
     enter-from-class="scale-0 opacity-0"

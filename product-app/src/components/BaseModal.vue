@@ -1,16 +1,31 @@
-<script setup></script>
+<script setup>
+defineEmits(['modal-close'])
+defineProps({
+  title: {
+    type: String,
+    default: 'Overlay',
+  },
+})
+</script>
 <template>
   <div
-    class="fixed top-0 left-0 w-full h-full z-10 flex justify-center items-center bg-[rgba(100,100,100,0.5)] cursor-pointer"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="product-title"
+    class="fixed top-0 left-0 w-full h-full z-10 flex justify-center items-center bg-[rgba(100,100,100,0.5)]"
+    @click="$emit('modal-close')"
   >
     <div
       class="relative m-5 border-2 border-black w-full max-w-lg bg-[rgba(55,55,55,0.9)] cursor-default overflow-y-auto max-h-[90vh]"
+      role="dialog"
+      aria-modal="true"
+      :aria-label="title"
       @click.stop
     >
-      <slot></slot>
+      <button
+        class="absolute top-0 right-0 px-3 py-1 text-red-500 transition hover:bg-red-500 hover:text-white cursor-pointer z-10"
+        @click="$emit('modal-close')"
+        aria-label="Close modal"
+      >
+        <i class="pi pi-times"></i>
+      </button>
       <slot name="header"></slot>
       <slot name="body"></slot>
       <slot name="footer"></slot>
