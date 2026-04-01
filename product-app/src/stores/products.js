@@ -1,11 +1,12 @@
+import { API_BASE_URL } from '@/config/api'
 import { defineStore } from 'pinia'
 
 export const useProductStore = defineStore('products', {
   state: () => ({
     products: [],
-    currentSkip: -1, // keeps track of current pagenumber, so only fetch again if different pagenumber
+    currentSkip: -1, // keeps track of current skip offset (pagination page num), so only fetch again if different skip offset
     total: 0,
-    isLoading: true,
+    isLoading: false,
     error: null,
   }),
 
@@ -17,7 +18,7 @@ export const useProductStore = defineStore('products', {
       this.error = null
 
       try {
-        const response = await fetch(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`)
+        const response = await fetch(`${API_BASE_URL}?limit=${limit}&skip=${skip}`)
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
         const data = await response.json()
         this.products = data.products

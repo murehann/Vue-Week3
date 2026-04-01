@@ -15,7 +15,7 @@ const isProductModalOpen = ref(false)
 const router = useRouter()
 const wishlistStore = useWishlistStore()
 const isWishlisted = computed(() => {
-  return wishlistStore.wishListStatus[product.id] || false
+  return wishlistStore.isWishListed(product.id)
 })
 
 const handleNavigate = () => {
