@@ -58,8 +58,8 @@ defineProps({
       <div class="w-full p-2 border-t-2 border-gray-700 bg-gray-100 flex justify-end gap-1">
         <BaseButton @click="$emit('navigate-details', product.id)"> Go to Details</BaseButton>
         <BaseButton @click="$emit('add-wishlist')">
-          <i class="pi pi-heart"></i>
-          {{ isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist' }}
+          <i v-if="isWishlisted" class="pi pi-heart-fill"></i>
+          <i v-else class="pi pi-heart"></i>
         </BaseButton>
       </div>
     </template>

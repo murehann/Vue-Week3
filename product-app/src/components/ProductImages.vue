@@ -19,6 +19,7 @@ defineProps({
       :src="img"
       :alt="`${title} image ${i + 1}`"
       class="h-48 w-48 object-cover border bg-white border-gray-400 shrink-0"
+      loading="lazy"
     />
   </div>
 </template>

@@ -31,10 +31,10 @@ watch(
 </script>
 <template>
   <h2 class="text-2xl font-bold mt-2 pl-2 text-center m-2 p-2 border-b border-t">Product List</h2>
-  <div v-if="productStore.isLoading" class="text-blue-600 font-bold m-2">Loading...</div>
-  <div v-else-if="productStore.error" class="text-red-600 font-bold m-2">
+  <p v-if="productStore.isLoading" class="text-blue-600 font-bold m-2">Loading...</p>
+  <p v-else-if="productStore.error" class="text-red-600 font-bold m-2">
     Error: {{ productStore.error }}
-  </div>
+  </p>
 
   <div v-else class="m-2">
     <ProductPagination

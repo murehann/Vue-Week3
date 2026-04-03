@@ -60,7 +60,6 @@ defineEmits(['wishlist-click'])
       </div>
 
       <BaseButton @click="$emit('wishlist-click')">
-        <i v-if="!isWishlisted" class="pi pi-heart"></i>
         {{ isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist' }}
       </BaseButton>
     </div>

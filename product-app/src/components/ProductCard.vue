@@ -58,7 +58,12 @@ onUnmounted(() => {
       :title="`${product.title} - click to view details`"
       class="border-r-2 flex-1 overflow-hidden bg-gray-300"
     >
-      <img :src="product.thumbnail" :alt="product.title" class="w-50 border-b border-t border-l" />
+      <img
+        :src="product.thumbnail"
+        :alt="product.title"
+        class="w-50 h-50 border-b border-t border-l"
+        loading="lazy"
+      />
       <h3 class="font-bold truncate">{{ product.title }}</h3>
     </RouterLink>
 
@@ -78,9 +83,10 @@ onUnmounted(() => {
         </p>
       </div>
 
-      <BaseButton @click.stop="handleWishlistClick">{{
-        isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'
-      }}</BaseButton>
+      <BaseButton @click.stop="handleWishlistClick">
+        <i v-if="isWishlisted" class="pi pi-heart-fill"></i>
+        <i v-else class="pi pi-heart"></i>
+      </BaseButton>
     </div>
   </div>
 

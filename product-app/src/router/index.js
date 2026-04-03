@@ -1,17 +1,21 @@
-import HomeView from '@/views/HomeView.vue'
-import NotFound404View from '@/views/NotFound404View.vue'
-import ProductView from '@/views/ProductView.vue'
-import WishlistView from '@/views/WishlistView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import { API_BASE_URL } from '@/config/api'
 
 const routes = [
-  { path: '/', name: 'home', component: HomeView },
-  { path: '/wishlist', name: 'wishlist', component: WishlistView },
+  {
+    path: '/',
+    name: 'home',
+    component: () => import('@/views/HomeView.vue'),
+  },
+  {
+    path: '/wishlist',
+    name: 'wishlist',
+    component: () => import('@/views/WishlistView.vue'),
+  },
   {
     path: '/product/:id',
     name: 'product-detail',
-    component: ProductView,
+    component: () => import('@/views/ProductView.vue'),
     beforeEnter: async (to) => {
       try {
         const res = await fetch(`${API_BASE_URL}/${to.params.id}`, {
@@ -28,7 +32,7 @@ const routes = [
   {
     name: 'not-found',
     path: '/:pathMatch(.*)*',
-    component: NotFound404View,
+    component: () => import('@/views/NotFound404View.vue'),
   },
 ]
 
