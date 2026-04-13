@@ -1,10 +1,20 @@
 <script setup>
+import { onMounted, onUnmounted } from 'vue'
+
 defineEmits(['modal-close'])
 defineProps({
   title: {
     type: String,
     default: 'Overlay',
   },
+})
+
+onMounted(() => {
+  document.body.style.overflow = 'hidden'
+})
+
+onUnmounted(() => {
+  document.body.style.overflow = ''
 })
 </script>
 <template>

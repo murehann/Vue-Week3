@@ -73,13 +73,21 @@ const handleWishlistClick = () => {
         <i v-else class="pi pi-heart"></i>
       </BaseButton>
     </div>
+    <button
+      @click="isProductModalOpen = true"
+      class="absolute ml-1 p-1 top-0 left-0 border bg-blue-600 transition hover:scale-110 cursor-pointer"
+      :aria-label="`Quick view ${product.title}`"
+      title="Click to preview product"
+    >
+      <i class="pi pi-window-maximize"></i>
+    </button>
   </div>
 
   <Transition
-    enter-active-class="transition duration-200 ease-out"
+    enter-active-class="duration-200 ease-out"
     enter-from-class="scale-0 opacity-0"
     enter-to-class="scale-100 opacity-100"
-    leave-active-class="transition duration-200 ease-in"
+    leave-active-class="duration-200  ease-in"
     leave-from-class="scale-100 opacity-100"
     leave-to-class="scale-0 opacity-0"
   >

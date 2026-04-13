@@ -68,7 +68,7 @@ const paginationArray = computed(() => {
     <ul class="flex gap-1">
       <li v-if="paginationData.currentPage > 1">
         <button
-          class="cursor-pointer px-2 py-1 transition hover:text-blue-800 hover:scale-120"
+          class="cursor-pointer px-2 py-1 transition hover:text-blue-800 hover:scale-110"
           @click="$emit('page-changed', paginationData.currentPage - 1)"
           aria-label="Go to previous page"
         >
