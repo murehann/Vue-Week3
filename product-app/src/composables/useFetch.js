@@ -1,24 +1,23 @@
 import { ref } from 'vue'
 
-export function useFetch(url) {
+export function useFetch(fetchFunction) {
   const data = ref(null)
   const error = ref('')
-  const isLoading = ref(true)
+  const isLoading = ref(false)
 
-  fetch(url)
-    .then((res) => {
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
-      return res.json()
-    })
-    .then((resData) => {
-      data.value = resData
-    })
-    .catch((err) => {
+  const execute = async () => {
+    isLoading.value = true
+    error.value = ''
+
+    try {
+      const res = await fetchFunction()
+      data.value = res
+    } catch (err) {
       error.value = err.message
-    })
-    .finally(() => {
+    } finally {
       isLoading.value = false
-    })
+    }
+  }
 
-  return { data, error, isLoading }
+  return { data, error, isLoading, execute }
 }

@@ -1,15 +1,20 @@
 <script setup>
+import { fetchProductById } from '@/api/products'
 import ProductDetail from '@/components/ProductDetail.vue'
-import ProductImages from '@/components/ProductImages.vue'
+import ProductImageList from '@/components/ProductImageList.vue'
 import ProductReview from '@/components/ProductReview.vue'
 import { useFetch } from '@/composables/useFetch'
-import { API_BASE_URL } from '@/config/api'
 import { useWishlistStore } from '@/stores/wishlists'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const { data, error, isLoading } = useFetch(`${API_BASE_URL}/${route.params.id}`)
+
+const { data, error, isLoading, execute } = useFetch(() => {
+  return fetchProductById(route.params.id)
+})
+execute()
+
 const wishlistStore = useWishlistStore()
 const isWishlisted = computed(() => {
   return wishlistStore.isWishListed(Number(route.params.id))

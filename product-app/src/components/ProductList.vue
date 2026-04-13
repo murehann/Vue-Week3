@@ -7,7 +7,7 @@ import ProductPagination from './ProductPagination.vue'
 const productStore = useProductStore()
 const paginationData = reactive({
   currentPage: 1,
-  perPage: 10,
+  perPage: 12,
 })
 const totalPages = computed(() => {
   return Math.ceil(productStore.total / paginationData.perPage)
@@ -20,11 +20,7 @@ const handleChangePage = (pageNumber) => {
 watch(
   () => paginationData.currentPage,
   () => {
-    productStore.fetchProducts(
-      false,
-      (paginationData.currentPage - 1) * paginationData.perPage,
-      paginationData.perPage,
-    )
+    productStore.fetchProducts(false, paginationData.currentPage, paginationData.perPage)
   },
   { immediate: true },
 )

@@ -18,9 +18,7 @@ const routes = [
     component: () => import('@/views/ProductView.vue'),
     beforeEnter: async (to) => {
       try {
-        const res = await fetch(`${API_BASE_URL}/${to.params.id}`, {
-          method: 'HEAD',
-        })
+        const res = await fetch(`${API_BASE_URL}/${to.params.id}`)
         if (res.status === 404) {
           return { name: 'not-found' }
         }
