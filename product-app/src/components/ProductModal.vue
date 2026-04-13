@@ -1,6 +1,7 @@
 <script setup>
 import BaseButton from './BaseButton.vue'
 import BaseModal from './BaseModal.vue'
+import ProductImageList from './ProductImageList.vue'
 defineEmits(['modal-close', 'navigate-details', 'add-wishlist'])
 defineProps({
   product: {
@@ -26,15 +27,11 @@ defineProps({
     <template #body>
       <div class="w-full p-2 flex flex-col gap-2 bg-gray-100">
         <!-- Images -->
-        <div class="flex gap-2 overflow-x-auto border-b border-gray-700 pb-2">
-          <img
-            v-for="(img, i) in product.images"
-            :key="i"
-            :src="img"
-            :alt="`${product.title} image ${i + 1}`"
-            class="h-32 w-32 object-cover border border-gray-400 shrink-0"
-          />
-        </div>
+        <ProductImageList
+          :images="product.images"
+          :title="product.title"
+          :image-dimensions="{ width: 32, height: 32 }"
+        />
 
         <!-- Details -->
         <div class="flex flex-col gap-2 text-sm">

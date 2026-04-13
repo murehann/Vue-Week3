@@ -1,5 +1,6 @@
 <script setup>
 import BaseButton from './BaseButton.vue'
+import ProductImage from './ProductImage.vue'
 
 defineProps({
   product: {
@@ -12,11 +13,10 @@ defineEmits(['remove-clicked'])
 </script>
 
 <template>
-  <img
-    :src="product.imageLink"
-    :alt="product.title"
-    class="w-20 h-20 object-cover border border-gray-400 bg-gray-300"
-    loading="lazy"
+  <ProductImage
+    :src-val="product.imageLink"
+    :alt-val="product.title"
+    class="w-20 h-20 border border-gray-400 bg-gray-300"
   />
 
   <div class="flex justify-between items-end flex-1">

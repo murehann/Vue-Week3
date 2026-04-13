@@ -35,7 +35,11 @@ const handleWishlist = () => {
     v-else
     class="m-4 border-b-3 border-r-3 border-l-3 border-gray-700 bg-gray-100 max-w-4xl mx-auto"
   >
-    <ProductImages :images="data.images" :title="data.title" />
+    <ProductImageList
+      :images="data.images"
+      :title="data.title"
+      :image-dimensions="{ width: 50, height: 50 }"
+    />
 
     <ProductDetail :data="data" :is-wishlisted="isWishlisted" @wishlist-click="handleWishlist" />
 

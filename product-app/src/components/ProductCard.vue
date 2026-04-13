@@ -1,9 +1,10 @@
 <script setup>
-import { computed, onUnmounted, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 import ProductModal from './ProductModal.vue'
 import { useRouter } from 'vue-router'
 import { useWishlistStore } from '@/stores/wishlists'
 import BaseButton from './BaseButton.vue'
+import ProductImage from './ProductImage.vue'
 
 const { product } = defineProps({
   product: {
@@ -30,40 +31,24 @@ const handleWishlistClick = () => {
     wishlistStore.removeFromWishList(product.id)
   }
 }
-
-watch(isProductModalOpen, (val) => {
-  document.body.style.overflow = val ? 'hidden' : ''
-})
-
-onUnmounted(() => {
-  document.body.style.overflow = ''
-})
 </script>
 <template>
   <div
     class="p-1 m-2 border-b-3 border-r-3 border-gray-700 flex gap-2 bg-gray-100 relative transition hover:scale-105 hover:bg-gray-200"
     :title="`Product: ${product.title}`"
   >
-    <button
-      @click="isProductModalOpen = true"
-      class="absolute ml-1 p-1 top-0 left-0 border bg-blue-600 transition hover:scale-110 cursor-pointer"
-      :aria-label="`Quick view ${product.title}`"
-      title="Click to preview product"
-    >
-      <i class="pi pi-window-maximize"></i>
-    </button>
-
     <RouterLink
       :to="`/product/${product.id}`"
       :title="`${product.title} - click to view details`"
       class="border-r-2 flex-1 overflow-hidden bg-gray-300"
     >
-      <img
-        :src="product.thumbnail"
-        :alt="product.title"
-        class="w-50 h-50 border-b border-t border-l"
-        loading="lazy"
+      <ProductImage
+        :src-val="product.thumbnail"
+        :alt-val="product.title"
+        :loading-type="'lazy'"
+        class="border-b border-t border-l mr-1"
       />
+
       <h3 class="font-bold truncate">{{ product.title }}</h3>
     </RouterLink>
 
