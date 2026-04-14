@@ -5,7 +5,7 @@ import ProductImageList from '@/components/ProductImageList.vue'
 import ProductReview from '@/components/ProductReview.vue'
 import { useFetch } from '@/composables/useFetch'
 import { useWishlistStore } from '@/stores/wishlists'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
@@ -13,7 +13,6 @@ const route = useRoute()
 const { data, error, isLoading, execute } = useFetch(() => {
   return fetchProductById(route.params.id)
 })
-execute()
 
 const wishlistStore = useWishlistStore()
 const isWishlisted = computed(() => {
@@ -27,8 +26,23 @@ const handleWishlist = () => {
     wishlistStore.removeFromWishList(data.value.id)
   }
 }
+
+watch(
+  () => route.params.id,
+  () => {
+    execute()
+  },
+  { immediate: true },
+)
 </script>
 <template>
+  <div class="flex justify-center px-3">
+    <RouterLink
+      class="underline text-md text-gray-800 hover:text-gray-800 hover:font-bold transition-all"
+      :to="`/product/${Number(route.params.id) + 1}`"
+      >Next Product</RouterLink
+    >
+  </div>
   <div v-if="isLoading" class="text-blue-500 font-bold m-4">Loading...</div>
   <div v-else-if="error" class="text-red-500 font-bold m-4">{{ error }}</div>
   <div
