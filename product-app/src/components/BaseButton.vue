@@ -15,7 +15,8 @@ const variants = {
   <button
     class="p-1 border border-black cursor-pointer flex items-center gap-1 justify-center"
     :class="variants[variant] ?? variants['default']"
+    data-testid="base-button"
   >
-    <slot></slot>
+    <slot>Button</slot>
   </button>
 </template>
