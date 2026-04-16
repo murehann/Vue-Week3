@@ -16,26 +16,27 @@ const productProps = {
   id: 23,
 }
 
-describe('WishlistCard - render', () => {
-  let wrapper
+let wrapper
 
-  beforeEach(() => {
-    wrapper = createWrapper({
-      props: {
-        product: productProps,
-      },
-    })
+beforeEach(() => {
+  wrapper = createWrapper({
+    props: {
+      product: productProps,
+    },
   })
+})
 
+describe('WishlistCard - render', () => {
   test('renders product title in heading', () => {
-    const wrapper = createWrapper({
-      props: {
-        product: productProps,
-      },
-    })
     const headingElement = wrapper.find('[data-testid="card-heading"]')
 
     expect(headingElement.text()).toBe(productProps.title)
+  })
+
+  test('renders product thumbnail', () => {
+    const imageElement = wrapper.find('[data-testid="card-image"]')
+
+    expect(imageElement.exists()).toBe(true)
   })
 
   test('sets image components src-val to imageLink and alt-val to title', () => {
@@ -53,20 +54,15 @@ describe('WishlistCard - render', () => {
 })
 
 describe('WishlistCard - actions', () => {
-  test("emits remove-clicked event with passed prop's id on single button press", async () => {
-    const wrapper = createWrapper({
-      props: {
-        product: productProps,
-      },
-    })
-
+  test('emits remove-clicked event once on button click', async () => {
     const buttonElement = wrapper.find('[data-testid="card-button"]')
-
     await buttonElement.trigger('click')
+    expect(wrapper.emitted('remove-clicked')).toHaveLength(1)
+  })
 
-    const removeClickEvent = wrapper.emitted('remove-clicked')
-
-    expect(removeClickEvent).toHaveLength(1)
-    expect(removeClickEvent[0]).toEqual([productProps.id])
+  test('emits remove-clicked with the product id on button click', async () => {
+    const buttonElement = wrapper.find('[data-testid="card-button"]')
+    await buttonElement.trigger('click')
+    expect(wrapper.emitted('remove-clicked')[0]).toEqual([productProps.id])
   })
 })

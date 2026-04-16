@@ -30,6 +30,7 @@ const handleRemoveClick = (id) => {
         v-for="product in wishlistStore.products"
         :key="product.id"
         class="border-b-3 border-r-3 border-gray-700 bg-gray-100 flex gap-2 p-1"
+        data-testid="wishlist-item"
       >
         <WishlistCard :product="product" @remove-clicked="handleRemoveClick" />
       </li>

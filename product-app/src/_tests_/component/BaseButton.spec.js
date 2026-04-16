@@ -25,11 +25,17 @@ describe('BaseButton', () => {
     danger: 'bg-red-500 hover:bg-red-600 text-white',
   }
 
-  test('Renders default button when no props and no slot passed', () => {
+  test('renders fallback text when no slot provided', () => {
     const wrapper = createWrapper()
     const buttonElement = getButton(wrapper)
 
     expect(buttonElement.text()).toBe('Button')
+  })
+
+  test('applies default variant classes when no variant passed', () => {
+    const wrapper = createWrapper()
+    const buttonElement = getButton(wrapper)
+
     expectClasses(buttonElement, variants.default)
   })
 
@@ -55,7 +61,7 @@ describe('BaseButton', () => {
     expect(buttonElement.text()).toBe('ButtonText')
   })
 
-  test('Renders default style when wrong props passed', () => {
+  test('Renders default style when wrong variant passed', () => {
     const wrapper = createWrapper({
       props: {
         variant: 'invalid',
