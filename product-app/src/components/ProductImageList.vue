@@ -10,7 +10,10 @@ defineProps({
     type: String,
     required: true,
   },
-  imageDimensions: Object,
+  imageDimensions: {
+    type: Object,
+    required: true,
+  },
 })
 </script>
 
@@ -24,6 +27,7 @@ defineProps({
       }"
       v-for="(img, i) in images"
       :key="i"
+      data-testid="image-list-item"
     >
       <ProductImage :src-val="img" :alt-val="`${title} image ${i + 1}`" />
     </li>
