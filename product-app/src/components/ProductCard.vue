@@ -21,6 +21,7 @@ const isWishlisted = computed(() => {
 })
 
 const handleNavigate = () => {
+  isProductModalOpen.value = false
   router.push(`/product/${product.id}`)
 }
 
@@ -35,12 +36,14 @@ const handleWishlistClick = () => {
 <template>
   <div
     class="p-1 m-2 border-b-3 border-r-3 border-gray-700 flex gap-2 bg-gray-100 relative transition hover:scale-105 hover:bg-gray-200"
+    data-testid="product-card-title"
     :title="`Product: ${product.title}`"
   >
     <RouterLink
       :to="`/product/${product.id}`"
       :title="`${product.title} - click to view details`"
       class="border-r-2 flex-1 overflow-hidden bg-gray-300"
+      data-testid="details-page-link"
     >
       <ProductImage
         :src-val="product.thumbnail"
@@ -49,28 +52,28 @@ const handleWishlistClick = () => {
         class="border-b border-t border-l mr-1"
       />
 
-      <h3 class="font-bold truncate">{{ product.title }}</h3>
+      <h3 class="font-bold truncate" data-testid="link-header">{{ product.title }}</h3>
     </RouterLink>
 
     <div class="flex justify-between flex-col flex-1">
       <div class="flex flex-col gap-2">
-        <p class="border-b">
+        <p class="border-b" data-testid="product-rating">
           Rating: <span class="font-bold"> {{ product.rating }} </span>
         </p>
-        <p class="border-b">
+        <p class="border-b" data-testid="product-price">
           Price: <span class="font-bold"> {{ product.price }}$ </span>
         </p>
-        <p class="border-b">
+        <p class="border-b" data-testid="product-discount">
           Discount: <span class="font-bold">{{ product.discountPercentage }}%</span>
         </p>
-        <p class="border-b">
+        <p class="border-b" data-testid="product-minOrderQty">
           Min Order Quantity:<span class="font-bold"> {{ product.minimumOrderQuantity }}</span>
         </p>
       </div>
 
       <BaseButton @click.stop="handleWishlistClick">
-        <i v-if="isWishlisted" class="pi pi-heart-fill"></i>
-        <i v-else class="pi pi-heart"></i>
+        <i v-if="isWishlisted" class="pi pi-heart-fill" data-testid="heart-fill"></i>
+        <i v-else class="pi pi-heart" data-testid="heart-hollow"></i>
       </BaseButton>
     </div>
     <button
@@ -78,6 +81,7 @@ const handleWishlistClick = () => {
       class="absolute ml-1 p-1 top-0 left-0 border bg-blue-600 transition hover:scale-110 cursor-pointer"
       :aria-label="`Quick view ${product.title}`"
       title="Click to preview product"
+      data-testid="preview-button"
     >
       <i class="pi pi-window-maximize"></i>
     </button>

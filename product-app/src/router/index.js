@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { API_BASE_URL } from '@/config/api'
 
-const routes = [
+export const routes = [
   {
     path: '/',
     name: 'home',
