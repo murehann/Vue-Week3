@@ -1,18 +1,17 @@
 <script setup>
-import { fetchProductById } from '@/api/products'
 import ProductDetail from '@/components/ProductDetail.vue'
 import ProductImageList from '@/components/ProductImageList.vue'
 import ProductReview from '@/components/ProductReview.vue'
-import { useFetch } from '@/composables/useFetch'
+import { useProductDetailsStore } from '@/stores/productDetails'
 import { useWishlistStore } from '@/stores/wishlists'
-import { computed, watch } from 'vue'
+import { storeToRefs } from 'pinia'
+import { computed, onUnmounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
+const productDetailStore = useProductDetailsStore()
 
-const { data, error, isLoading, execute } = useFetch(() => {
-  return fetchProductById(route.params.id)
-})
+const { currentProduct: data, error, loading: isLoading } = storeToRefs(productDetailStore)
 
 const wishlistStore = useWishlistStore()
 const isWishlisted = computed(() => {
@@ -30,10 +29,14 @@ const handleWishlist = () => {
 watch(
   () => route.params.id,
   () => {
-    execute()
+    productDetailStore.fetchProduct(Number(route.params.id))
   },
   { immediate: true },
 )
+
+onUnmounted(() => {
+  productDetailStore.clearProduct()
+})
 </script>
 <template>
   <div class="flex justify-center px-3">

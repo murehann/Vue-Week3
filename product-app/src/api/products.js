@@ -6,8 +6,8 @@ export async function fetchProducts({ page = 1, limit = 10 }) {
   return res.json()
 }
 
-export async function fetchProductById(id) {
-  const res = await fetch(`${API_BASE_URL}/${id}`)
+export async function fetchProductById(id, signal) {
+  const res = await fetch(`${API_BASE_URL}/${id}`, { signal })
   if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
   const data = await res.json()
   return data
