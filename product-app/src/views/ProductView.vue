@@ -15,7 +15,7 @@ const { currentProduct: data, error, loading: isLoading } = storeToRefs(productD
 
 const wishlistStore = useWishlistStore()
 const isWishlisted = computed(() => {
-  return wishlistStore.isWishListed(Number(route.params.id))
+  return wishlistStore.isWishListed(route.params.id)
 })
 
 const handleWishlist = () => {
