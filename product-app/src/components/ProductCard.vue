@@ -50,6 +50,7 @@ const handleWishlistClick = () => {
         :alt-val="product.title"
         :loading-type="'lazy'"
         class="border-b border-t border-l mr-1"
+        style="height: 180px; width: 180px"
       />
 
       <h3 class="font-bold truncate" data-testid="link-header">{{ product.title }}</h3>

@@ -74,7 +74,7 @@ onMounted(() => {
           }"
           data-testid="image-list-item"
         >
-          <ProductImage :src-val="img" :alt-val="`${title} image ${i + 1}`" />
+          <ProductImage :src-val="img" :alt-val="`${title} image ${i + 1}`" class="h-full w-full" />
         </li>
       </ul>
     </div>
