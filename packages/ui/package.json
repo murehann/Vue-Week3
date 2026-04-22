@@ -1,0 +1,13 @@
+{
+  "name": "murehan-ui",
+  "version": "1.0.0",
+  "main": "dist/murehan-ui.umd.js",
+  "module": "dist/murehan-ui.mjs",
+  "files": ["dist"],
+  "scripts": {
+    "build": "vite build"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  }
+}

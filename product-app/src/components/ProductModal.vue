@@ -1,5 +1,5 @@
 <script setup>
-import BaseButton from './BaseButton.vue'
+import {BaseButton} from 'murehan-ui'
 import BaseModal from './BaseModal.vue'
 import ProductImageList from './ProductImageList.vue'
 defineEmits(['modal-close', 'navigate-details', 'add-wishlist'])
