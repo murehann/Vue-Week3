@@ -1,8 +1,14 @@
-import { fetchProducts } from '@/api/products'
+import { type Product, fetchProducts } from '@/api/products'
 import { defineStore } from 'pinia'
 
 export const useProductStore = defineStore('products', {
-  state: () => ({
+  state: (): {
+    products: Product[]
+    currentPage: number
+    total: number
+    isLoading: boolean
+    error: null | string
+  } => ({
     products: [],
     currentPage: -1, // keeps track of current currentPage offset (pagination page num), so only fetch again if different currentPage offset
     total: 0,
@@ -11,7 +17,11 @@ export const useProductStore = defineStore('products', {
   }),
 
   actions: {
-    async fetchProducts(force = false, page = 1, limit = 10) {
+    async fetchProducts(
+      force: boolean = false,
+      page: number = 1,
+      limit: number = 10,
+    ): Promise<void> {
       if (page === this.currentPage && !force) return
 
       this.isLoading = true
@@ -23,7 +33,7 @@ export const useProductStore = defineStore('products', {
         this.total = data.items
         this.currentPage = page
       } catch (err) {
-        this.error = err.message
+        this.error = err instanceof Error ? err.message : 'Failed to fetch products'
       } finally {
         this.isLoading = false
       }
