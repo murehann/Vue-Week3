@@ -1,36 +1,36 @@
-import { fetchProductById } from '@/api/products'
+import { type Product, fetchProductById } from '@/api/products'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 export const useProductDetailsStore = defineStore('product-details', () => {
-  const currentProduct = ref(null)
-  const loading = ref(false)
-  const error = ref('')
+  const currentProduct = ref<null | Product>(null)
+  const loading = ref<boolean>(false)
+  const error = ref<string>('')
 
-  let controller = null
+  let controller: null | AbortController = null
 
-  async function fetchProduct(id) {
+  async function fetchProduct(id: number): Promise<void> {
     controller?.abort()
 
     controller = new AbortController()
-    const signal = controller.signal
+    const signal: AbortSignal = controller.signal
 
     loading.value = true
     error.value = ''
 
     try {
-      const data = await fetchProductById(id, signal)
+      const data: Product = await fetchProductById(id, signal)
       currentProduct.value = data
-    } catch (err) {
-      if (err.name === 'AbortError') return
-      error.value = err?.message || 'something went wrong'
+    } catch (err: unknown) {
+      if (err instanceof DOMException && err.name === 'AbortError') return
+      error.value = err instanceof Error ? err.message : 'something went wrong'
     } finally {
       if (!signal.aborted) loading.value = false
       if (controller?.signal === signal) controller = null
     }
   }
 
-  function clearProduct() {
+  function clearProduct(): void {
     if (controller) controller.abort()
 
     currentProduct.value = null
