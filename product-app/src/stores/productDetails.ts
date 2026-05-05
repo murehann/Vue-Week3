@@ -9,7 +9,7 @@ export const useProductDetailsStore = defineStore('product-details', () => {
 
   let controller: null | AbortController = null
 
-  async function fetchProduct(id: number): Promise<void> {
+  async function fetchProduct(id: string): Promise<void> {
     controller?.abort()
 
     controller = new AbortController()
