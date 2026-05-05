@@ -1,18 +1,28 @@
 import { defineStore } from 'pinia'
 
+export interface Wishlist {
+  id: string
+  title: string
+  imageLink: string
+}
+
 export const useWishlistStore = defineStore('wishlists', {
-  state: () => ({
+  state: (): {
+    products: Wishlist[]
+  } => ({
     products: [],
   }),
 
   getters: {
-    isWishListed: (state) => (id) => {
-      return state.products.some((product) => product.id === id)
-    },
+    isWishListed:
+      (state) =>
+      (id: string): boolean => {
+        return state.products.some((product) => product.id === id)
+      },
   },
 
   actions: {
-    addToWishList(id, title, imageLink) {
+    addToWishList(id: string, title: string, imageLink: string): void {
       if (!this.isWishListed(id)) {
         this.products.push({
           id,
@@ -22,7 +32,7 @@ export const useWishlistStore = defineStore('wishlists', {
       }
     },
 
-    removeFromWishList(id) {
+    removeFromWishList(id: string): void {
       const index = this.products.findIndex((product) => product.id === id)
       if (index !== -1) {
         this.products.splice(index, 1)
