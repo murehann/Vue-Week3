@@ -15,7 +15,7 @@ interface ProductMeta {
   qrCode: string // "https://cdn.dummyjson.com/public/qr-code.png"
 }
 
-interface Product {
+export interface Product {
   id: number
   title: string
   description: string
@@ -43,7 +43,7 @@ interface Product {
   thumbnail: string
 }
 
-interface FetchProductsResponse {
+export interface FetchProductsResponse {
   first: number
   prev: number | null
   next: number | null
@@ -65,7 +65,7 @@ export async function fetchProducts({
   return res.json() as Promise<FetchProductsResponse>
 }
 
-export async function fetchProductById(id: string, signal: AbortSignal): Promise<Product> {
+export async function fetchProductById(id: number, signal: AbortSignal): Promise<Product> {
   const res = await fetch(`${API_BASE_URL}/${id}`, { signal })
   if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`)
   const data = await res.json()
