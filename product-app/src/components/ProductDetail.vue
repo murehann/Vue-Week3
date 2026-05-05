@@ -1,5 +1,5 @@
 <script setup>
-import {BaseButton} from 'murehan-ui'
+import { BaseButton } from 'murehan-ui'
 
 defineProps({
   data: {
@@ -16,15 +16,15 @@ defineEmits(['wishlist-click'])
 </script>
 
 <template>
-  <div class="flex gap-4 p-2">
+  <div class="flex flex-col sm:flex-row gap-4 p-2">
     <!-- Left: main info -->
-    <div class="flex flex-col gap-2 flex-1 border-r-2 border-gray-700">
+    <div class="flex flex-col gap-2 flex-1 border-b-2 sm:border-r-2 sm:border-b-0 pb-4 sm:pb-0">
       <h1 class="font-bold text-2xl">{{ data.title }}</h1>
       <p class="text-gray-600 text-sm border-b pb-2">{{ data.description }}</p>
       <p class="border-b"><span class="font-bold">Brand:</span> {{ data.brand }}</p>
       <p class="border-b"><span class="font-bold">Category:</span> {{ data.category }}</p>
       <p class="border-b"><span class="font-bold">SKU:</span> {{ data.sku }}</p>
-      <p class="border-b"><span class="font-bold">Tags:</span> {{ data.tags.join(', ') }}</p>
+      <p class="sm:border-b"><span class="font-bold">Tags:</span> {{ data.tags.join(', ') }}</p>
     </div>
 
     <!-- Right: pricing & details -->

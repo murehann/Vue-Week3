@@ -1,4 +1,4 @@
-import BaseButton from '@/components/BaseButton.vue'
+import { BaseButton } from 'murehan-ui'
 import ProductCard from '@/components/ProductCard.vue'
 import ProductImage from '@/components/ProductImage.vue'
 import ProductModal from '@/components/ProductModal.vue'

@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import ProductModal from './ProductModal.vue'
 import { useRouter } from 'vue-router'
 import { useWishlistStore } from '@/stores/wishlists'
-import {BaseButton} from 'murehan-ui'
+import { BaseButton } from 'murehan-ui'
 import ProductImage from './ProductImage.vue'
 
 const { product } = defineProps({

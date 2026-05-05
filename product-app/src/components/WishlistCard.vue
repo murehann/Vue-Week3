@@ -1,5 +1,5 @@
 <script setup>
-import {BaseButton} from 'murehan-ui'
+import { BaseButton } from 'murehan-ui'
 import ProductImage from './ProductImage.vue'
 
 defineProps({
