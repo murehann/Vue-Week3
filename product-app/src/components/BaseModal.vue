@@ -1,13 +1,18 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue'
 
-defineEmits(['modal-close'])
-defineProps({
-  title: {
-    type: String,
-    default: 'Overlay',
+const emit = defineEmits<{
+  'modal-close': []
+}>()
+
+withDefaults(
+  defineProps<{
+    title?: string
+  }>(),
+  {
+    title: 'Overlay',
   },
-})
+)
 
 onMounted(() => {
   document.body.style.overflow = 'hidden'
@@ -20,7 +25,7 @@ onUnmounted(() => {
 <template>
   <div
     class="fixed top-0 left-0 w-full h-full z-10 flex justify-center items-center bg-[rgba(100,100,100,0.5)]"
-    @click="$emit('modal-close')"
+    @click="emit('modal-close')"
     data-testid="modal-backdrop"
   >
     <div
@@ -33,7 +38,7 @@ onUnmounted(() => {
     >
       <button
         class="absolute top-0 right-0 px-3 py-1 text-red-500 transition hover:bg-red-500 hover:text-white cursor-pointer z-10"
-        @click="$emit('modal-close')"
+        @click="emit('modal-close')"
         aria-label="Close modal"
         data-testid="close-button"
       >

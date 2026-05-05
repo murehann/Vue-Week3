@@ -1,4 +1,4 @@
-<script setup></script>
+<script setup lang="ts"></script>
 <template>
   <header aria-labelledby="app-header">
     <h1 class="font-bold text-3xl text-center text-gray-600" id="app-header">Product App</h1>
