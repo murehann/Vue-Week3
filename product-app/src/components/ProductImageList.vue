@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import ProductImage from './ProductImage.vue'
 
 const props = defineProps({
@@ -40,8 +40,18 @@ function handleRight() {
   if (currentImgIndex.value < props.images.length - 1) currentImgIndex.value++
 }
 
+function handleResize() {
+  if (!containerRef.value) return
+  containerWidth.value = containerRef.value?.clientWidth
+}
+
 onMounted(() => {
-  containerWidth.value = containerRef.value?.clientWidth || 0
+  containerWidth.value = containerRef.value?.clientWidth
+  window.addEventListener('resize', handleResize)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize)
 })
 </script>
 
